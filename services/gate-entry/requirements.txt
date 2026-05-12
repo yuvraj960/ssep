@@ -1,0 +1,6 @@
+fastapi>=0.110.0
+uvicorn[standard]>=0.27.0
+google-cloud-pubsub>=2.21
+google-cloud-firestore>=2.16
+redis[hiredis]>=5.0
+structlog>=24.1
