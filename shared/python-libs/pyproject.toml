@@ -1,0 +1,15 @@
+[project]
+name = "ssep-common"
+version = "0.1.0"
+description = "Shared libraries for SSEP services"
+requires-python = ">=3.11"
+dependencies = [
+    "google-cloud-pubsub>=2.21",
+    "google-cloud-firestore>=2.16",
+    "redis[hiredis]>=5.0",
+    "structlog>=24.1",
+]
+
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
