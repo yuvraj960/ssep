@@ -1,0 +1,10 @@
+github.com/go-chi/chi/v5 v5.0.12 h1:PaR5T2gg2b5nR7RbD4ZI3UK6dOohYCGr4w/EkfaR3kI=
+github.com/go-chi/chi/v5 v5.0.12/go.mod h1:D3C5deZ8nqQps5b5j8Kf/Q+CR2jGev2BW6F5pn8S30I=
+github.com/cespare/xxhash/v2 v2.3.0 h1:UL8ncx4xtl1Ied6G9cZc2DV8QyK5dXdyj6O2j88acXQ=
+github.com/cespare/xxhash/v2 v2.3.0/go.mod h1:VGX0D5I6d1Hj5tqDPRFCh1bZrtFz1W1G8sVm2bBbLKw=
+github.com/dgryski/go-rendezvous v0.0.0-202308083735-e30cb8db0e99 h1:2gDk06AG2p5GxxG6g717Jd5a7D6Mk0RKWvpE4m8X5Ho=
+github.com/dgryski/go-rendezvous v0.0.0-202308083735-e30cb8db0e99/go.mod h1:xGb5mj+6Sx1gGm2P2chP6HOf5cS+0VT9c+h1UOm1vg=
+github.com/google/uuid v1.6.0 h1:qvaYb9zw9Pd30sXUgFKMs0MaFvI4JjmQ+P+IsQa2ffE=
+github.com/google/uuid v1.6.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGG6E/J6Pq3dM+NYrx6cT9s=
+github.com/redis/go-redis/v9 v9.5.1 h1:HnH4CH5JTJU8M2MqE3Y9le9Yhh9mv0KD8AhV6bXZ21Q=
+github.com/redis/go-redis/v9 v9.5.1/go.mod h1:hdY0cQFCN4fnSYTTTkis5tAT7MJ6i0x7i+QIAosh3n8=
