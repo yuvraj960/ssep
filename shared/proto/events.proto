@@ -1,0 +1,97 @@
+syntax = "proto3";
+
+package ssep.events;
+
+option java_package = "com.ssep.events";
+option go_package = "github.com/ssep/events";
+
+import "google/protobuf/timestamp.proto";
+
+message CrowdDensityUpdated {
+  string venue_id = 1;
+  string zone_id = 2;
+  double density = 3;
+  int32 headcount = 4;
+  double latitude = 5;
+  double longitude = 6;
+  google.protobuf.Timestamp event_time = 7;
+  string sensor_type = 8;
+}
+
+message QueueWaitChanged {
+  string venue_id = 1;
+  string zone_id = 2;
+  string facility_type = 3;
+  string facility_id = 4;
+  double estimated_wait_minutes = 5;
+  int32 queue_length = 6;
+  google.protobuf.Timestamp event_time = 7;
+}
+
+message GateScanEvent {
+  string venue_id = 1;
+  string gate_id = 2;
+  string ticket_id = 3;
+  string scan_type = 4;
+  google.protobuf.Timestamp event_time = 5;
+  double scan_velocity_per_min = 6;
+}
+
+message OrderCreated {
+  string venue_id = 1;
+  string order_id = 2;
+  string attendee_id = 3;
+  string seat_section = 4;
+  string seat_row = 5;
+  string seat_number = 6;
+  repeated OrderItem items = 7;
+  double total_amount = 8;
+  google.protobuf.Timestamp event_time = 9;
+}
+
+message OrderItem {
+  string item_id = 1;
+  string name = 2;
+  int32 quantity = 3;
+  double unit_price = 4;
+}
+
+message OrderStatusChanged {
+  string venue_id = 1;
+  string order_id = 2;
+  string status = 3;
+  string assigned_runner = 4;
+  google.protobuf.Timestamp event_time = 5;
+}
+
+message IncidentCreated {
+  string venue_id = 1;
+  string incident_id = 2;
+  string category = 3;
+  string severity = 4;
+  string zone_id = 5;
+  string description = 6;
+  string reported_by = 7;
+  google.protobuf.Timestamp event_time = 8;
+}
+
+message IncidentUpdated {
+  string venue_id = 1;
+  string incident_id = 2;
+  string status = 3;
+  string assigned_staff = 4;
+  string update_note = 5;
+  google.protobuf.Timestamp event_time = 6;
+}
+
+message NotificationSend {
+  string venue_id = 1;
+  string notification_id = 2;
+  string target_type = 3;
+  string target_id = 4;
+  string channel = 5;
+  string title = 6;
+  string body = 7;
+  map<string, string> data = 8;
+  google.protobuf.Timestamp event_time = 9;
+}
