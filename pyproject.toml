@@ -1,0 +1,20 @@
+[project]
+name = "ssep-shared"
+version = "0.1.0"
+description = "Shared libraries for Smart Stadium Experience Platform"
+requires-python = ">=3.11"
+
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
