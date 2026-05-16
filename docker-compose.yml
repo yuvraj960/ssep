@@ -1,0 +1,138 @@
+version: "3.9"
+services:
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+
+  firestore-emulator:
+    image: google/cloud-sdk:latest
+    command: gcloud firestore emulator start --host-port=0.0.0.0:8787
+    ports:
+      - "8787:8787"
+    environment:
+      FIRESTORE_PROJECT_ID: ssep-dev
+
+  pubsub-emulator:
+    image: google/cloud-sdk:latest
+    command: gcloud beta emulators pubsub start --host-port=0.0.0.0:8686
+    ports:
+      - "8686:8686"
+    environment:
+      PUBSUB_PROJECT_ID: ssep-dev
+
+  crowd-flow:
+    build:
+      context: ./services/crowd-flow
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - REDIS_HOST=redis:6379
+      - FIRESTORE_EMULATOR_HOST=firestore-emulator:8787
+      - PUBSUB_EMULATOR_HOST=pubsub-emulator:8686
+      - GCP_PROJECT_ID=ssep-dev
+      - VENUE_ID=stadium-001
+    depends_on:
+      - redis
+      - firestore-emulator
+      - pubsub-emulator
+
+  queue-predictor:
+    build:
+      context: ./services/queue-predictor
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      - REDIS_HOST=redis:6379
+      - PUBSUB_EMULATOR_HOST=pubsub-emulator:8686
+      - GCP_PROJECT_ID=ssep-dev
+      - VENUE_ID=stadium-001
+    depends_on:
+      - redis
+      - pubsub-emulator
+
+  navigation:
+    build:
+      context: ./services/navigation
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    environment:
+      - REDIS_HOST=redis:6379
+      - FIRESTORE_EMULATOR_HOST=firestore-emulator:8787
+      - GCP_PROJECT_ID=ssep-dev
+      - VENUE_ID=stadium-001
+    depends_on:
+      - redis
+      - firestore-emulator
+
+  order-deliver:
+    build:
+      context: ./services/order-deliver
+      dockerfile: Dockerfile
+    ports:
+      - "8083:8083"
+    environment:
+      - REDIS_HOST=redis:6379
+      - FIRESTORE_EMULATOR_HOST=firestore-emulator:8787
+      - PUBSUB_EMULATOR_HOST=pubsub-emulator:8686
+      - GCP_PROJECT_ID=ssep-dev
+      - VENUE_ID=stadium-001
+    depends_on:
+      - redis
+      - firestore-emulator
+      - pubsub-emulator
+
+  notification:
+    build:
+      context: ./services/notification
+      dockerfile: Dockerfile
+    ports:
+      - "8084:8084"
+    environment:
+      - FIRESTORE_EMULATOR_HOST=firestore-emulator:8787
+      - PUBSUB_EMULATOR_HOST=pubsub-emulator:8686
+      - GCP_PROJECT_ID=ssep-dev
+      - VENUE_ID=stadium-001
+    depends_on:
+      - firestore-emulator
+      - pubsub-emulator
+
+  incident-manager:
+    build:
+      context: ./services/incident-manager
+      dockerfile: Dockerfile
+    ports:
+      - "8085:8085"
+    environment:
+      - FIRESTORE_EMULATOR_HOST=firestore-emulator:8787
+      - PUBSUB_EMULATOR_HOST=pubsub-emulator:8686
+      - GCP_PROJECT_ID=ssep-dev
+      - VENUE_ID=stadium-001
+    depends_on:
+      - firestore-emulator
+      - pubsub-emulator
+
+  gate-entry:
+    build:
+      context: ./services/gate-entry
+      dockerfile: Dockerfile
+    ports:
+      - "8086:8086"
+    environment:
+      - REDIS_HOST=redis:6379
+      - FIRESTORE_EMULATOR_HOST=firestore-emulator:8787
+      - PUBSUB_EMULATOR_HOST=pubsub-emulator:8686
+      - GCP_PROJECT_ID=ssep-dev
+      - VENUE_ID=stadium-001
+    depends_on:
+      - redis
+      - firestore-emulator
+      - pubsub-emulator
+
+volumes:
+  redis-data:
